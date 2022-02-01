@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Calling External API to display Team Name</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.js"></script>
+</head>
+
+<body>
+	<p>
+		<script>
+			axios.get('http://localhost:8080/displayTeamName')
+				.then(response => {
+					document.write("Team Name: " + response.data['team'])
+				}, err => {
+					console.log(err)
+				})
+		</script>
+	</p>
+</body>
+
+</html>
