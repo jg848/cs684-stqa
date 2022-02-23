@@ -50,7 +50,7 @@ public class User {
 		if (!(o instanceof User))
 			return false;
 		User user = (User) o;
-		return Objects.equals(username, user.username) && Objects.equals(password, user.password);
+		return username.equals(user.username) && password.equals(user.password);
 	}
 
 	@Override
