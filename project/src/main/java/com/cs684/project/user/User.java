@@ -1,15 +1,14 @@
 package com.cs684.project.user;
 
-import java.util.Objects;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
 public class User {
 	private @Id @GeneratedValue long id;
 	private @NotBlank String username;
@@ -50,7 +49,7 @@ public class User {
 		if (!(o instanceof User))
 			return false;
 		User user = (User) o;
-		return username.equals(user.username) && password.equals(user.password);
+		return username.equals(user.getUsername());
 	}
 
 	@Override

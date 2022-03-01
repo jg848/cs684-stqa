@@ -12,7 +12,7 @@
 		<script>
 			axios.get('http://localhost:8080/displayTeamName')
 				.then(response => {
-					document.write("Team Name: " + response.data['team'])
+					document.write("Team Name: " + response.data['team'] + "\n" + response.data['token'])
 				}, err => {
 					console.log(err)
 				})

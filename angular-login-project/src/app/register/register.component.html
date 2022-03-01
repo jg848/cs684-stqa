@@ -1,0 +1,30 @@
+<app-menu></app-menu>
+<div class="container col-lg-6">
+    <h1 class="text-center">Signup</h1>
+    <div class="card">
+        <div class="card-body">
+            <form class="form-group">
+                <div class="alert alert-warning" *ngIf='displayError'>{{errorMessage}}</div>
+                <div class="alert alert-success" *ngIf='registerSuccess'>{{successMessage}}</div>
+                <div class="form-group">
+                    <label for="text">User Name :</label>
+                    <input type="text" class="form-control" id="username" [(ngModel)]="username"
+                        placeholder="Enter User Name" name="username" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" [(ngModel)]="password" id="password"
+                        placeholder="Enter password" name="password" required
+                        ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
+                    <div *ngIf="password" ng-messages="password.$error">
+                        <div ng-message="pattern">Password should be atleast 8 characters long
+                            and should contain one number,one character and one special
+                            character
+                        </div>
+                    </div>
+                </div>
+                <button (click)=handleRegister() class="btn btn-success">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
