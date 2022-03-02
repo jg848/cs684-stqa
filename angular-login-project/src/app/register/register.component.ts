@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
   displayPasswordError = false;
   successMessage!: String;
   registerSuccess = false;
-  authenticate = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,24 +28,7 @@ export class RegisterComponent implements OnInit {
   }
 
   handleRegister() {
-    if(this.username.length<8){
-      this.displayError = true;
-      this.registerSuccess = false;
-      this.errorMessage = 'Username must be atleast 8 characters.'
-      this.authenticate = false;
-    }else if (!(this.password === this.cpassword)) {
-      console.log('else case mismatch');
-      this.displayError = true;
-      this.registerSuccess = false;
-      this.errorMessage = 'Passwords must match.'
-      this.authenticate = false;
-    }else if (this.password!='/(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&^])[A-Za-z\d$@$!%*#?&]{8,}/'){
-      this.displayError = true;
-      this.registerSuccess = false;
-      this.errorMessage = 'Password invalid format.'
-      this.authenticate = false;
-    }
-    if(this.authenticate){
+    if (this.password === this.cpassword) {
       this.authenticationService.registrationService(this.username, this.password).subscribe({
         next: (result) => {
           this.registerSuccess = true;
@@ -58,11 +40,14 @@ export class RegisterComponent implements OnInit {
           this.registerSuccess = false;
         }
       });
+    }else{
+      this.displayError = true;
+      this.registerSuccess = false;
+      this.errorMessage = 'Passwords must match.'
     }
   }
 
   check() {
-    console.log('check')
     if (this.password != this.cpassword) {
       this.displayPasswordError = true;
     } else {
