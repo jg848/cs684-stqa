@@ -17,10 +17,6 @@ export class HomeComponent implements OnInit {
     private router: Router, private helloWorldService: HomeService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    //this.helloWorldService.executeHomeService().subscribe((res: { content: string; }) => {
-     // this.welcomeMessage = res.content;
-      
-    //});
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
     if(this.isLoggedIn)
       this.welcomeMessage = 'Welcome '+this.authenticationService.username.toUpperCase()
