@@ -23,6 +23,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="pwd">Confirm Password:</label>
+                    <input type="password" class="form-control" [(ngModel)]="cpassword" id="cpassword"
+                        placeholder="Re-Enter password" name="cpassword" required (oninput)=check()>
+                    <div *ngIf="displayPasswordError" ng-messages="cpassword.$error">
+                        <div *ngIf="displayPasswordError">{{passwordErrorMessage}}
+                        </div>
+                    </div>
+                </div>
                 <button (click)=handleRegister() class="btn btn-success">Register</button>
             </form>
         </div>
