@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   authenticationService(username: String, password: String) {
-    return this.http.post(`http://localhost:8080/users/signin?username=` + username.toString() + `&password=` + password.toString(), {}).pipe(map((res) => {
+    return this.http.post(`http://localhost:8080/users/signin?username=` + username + `&password=` + password, {}).pipe(map((res) => {
       this.username = username;
       this.password = password;
       this.registerSuccessfulLogin(username, password);
@@ -26,7 +26,7 @@ export class AuthenticationService {
   }
 
   registrationService(username: String, password: String) {
-    return this.http.post(`http://localhost:8080/users/signup?username=` + username.toString() + `&password=` + password.toString(), {}).pipe(map((res) => {
+    return this.http.post(`http://localhost:8080/users/signup?username=` + username + `&password=` + password, {}).pipe(map((res) => {
     }));
   }
 
@@ -35,17 +35,23 @@ export class AuthenticationService {
   }
 
   registerSuccessfulLogin(username: String, password: String) {
-    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username.toString())
+    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username.valueOf())
   }
 
   logout() {
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    this.username = '';
-    this.password = '';
+    if (this.isUserLoggedIn()) {
+      //return this.http.post(`http://localhost:8080/users/signout?username=` + this.getLoggedInUserName(), {}).pipe(map((res) => {
+      sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+      this.username = '';
+      this.password = '';
+      //}));
+    } else {
+      return;
+    }
   }
 
   isUserLoggedIn() {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     if (user === null || '') return false
     return true
   }

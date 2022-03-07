@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../login/auth.service';
+import Validation from '../utils/validation';
 
 @Component({
   selector: 'app-register',
@@ -9,49 +11,68 @@ import { AuthenticationService } from '../login/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  username!: String;
-  password!: String;
-  cpassword!: String;
-  errorMessage = 'Registration Failed as User already exists';
-  passwordErrorMessage = 'Passwords must match';
+  form: FormGroup = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+    confirmPassword: new FormControl(''),
+  });
+  submitted = false;
+
+  errorMessage = 'Registration Failed';
   displayError = false;
-  displayPasswordError = false;
-  successMessage!: String;
-  registerSuccess = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.form = this.formBuilder.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8)
+          ]
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+          ]
+        ],
+        confirmPassword: ['', Validators.required]
+      },
+      {
+        validators: [Validation.match('password', 'confirmPassword')]
+      }
+    );
   }
 
-  handleRegister() {
-    if (this.password === this.cpassword) {
-      this.authenticationService.registrationService(this.username, this.password).subscribe({
-        next: (result) => {
-          this.registerSuccess = true;
-          this.displayError = false;
-          this.successMessage = 'Registration Successful.';
-          this.router.navigate(['/login']);
-        }, error: (err) => {
-          this.displayError = true;
-          this.registerSuccess = false;
-        }
-      });
-    }else{
-      this.displayError = true;
-      this.registerSuccess = false;
-      this.errorMessage = 'Passwords must match.'
-    }
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
   }
-
-  check() {
-    if (this.password != this.cpassword) {
-      this.displayPasswordError = true;
-    } else {
-      this.displayPasswordError = false;
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
     }
+    this.authenticationService.registrationService(this.form.controls['username'].value, this.form.controls['password'].value).subscribe({
+      next: (result) => {
+        this.displayError = false;
+        this.router.navigate(['/login']);
+      }, error: (err) => {
+        this.displayError = true;
+        this.errorMessage = err;
+      }
+    });
+  }
+  onReset(): void {
+    this.submitted = false;
+    this.form.reset();
   }
 }

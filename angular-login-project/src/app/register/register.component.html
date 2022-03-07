@@ -3,36 +3,55 @@
     <h1 class="text-center">Signup</h1>
     <div class="card">
         <div class="card-body">
-            <form class="form-group">
-                <div class="alert alert-warning" *ngIf='displayError'>{{errorMessage}}</div>
-                <div class="alert alert-success" *ngIf='registerSuccess'>{{successMessage}}</div>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
+                <div *ngIf="displayError" class="invalid-feedback">{{errorMessage}}</div>
                 <div class="form-group">
-                    <label for="text">User Name :</label>
-                    <input type="text" class="form-control" id="username" [(ngModel)]="username"
-                        placeholder="Enter User Name" name="username" required minlength="8">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" [(ngModel)]="password" id="password"
-                        placeholder="Enter password" name="password" required
-                        ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/">
-                    <div *ngIf="password" ng-messages="password.$error">
-                        <div ng-message="pattern">Password should be atleast 8 characters long
-                            and should contain one number,one character and one special
-                            character
+                    <label>Username</label>
+                    <input type="text" formControlName="username" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
+                    <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                        <div *ngIf="f['username'].errors['required']">Username is required</div>
+                        <div *ngIf="f['username'].errors['minlength']">
+                            Username must be at least 8 characters
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="pwd">Confirm Password:</label>
-                    <input type="password" class="form-control" [(ngModel)]="cpassword" id="cpassword"
-                        placeholder="Re-Enter password" name="cpassword" required (oninput)=check()>
-                    <div *ngIf="displayPasswordError" ng-messages="cpassword.$error">
-                        <div *ngIf="displayPasswordError">{{passwordErrorMessage}}
+                    <label>Password</label>
+                    <input type="password" formControlName="password" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                        <div *ngIf="f['password'].errors['required']">Password is required</div>
+                        <div *ngIf="f['password'].errors['minlength']">
+                            Password must be at least 8 characters
+                        </div>
+                        <div *ngIf="f['password'].errors['pattern']">
+                            Password must have a lower case letter, an upper case letter, a number and a special character
                         </div>
                     </div>
                 </div>
-                <button (click)=handleRegister() class="btn btn-success">Register</button>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" formControlName="confirmPassword" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" />
+                    <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+                        <div *ngIf="f['confirmPassword'].errors['required']">
+                            Confirm Password is required
+                        </div>
+                        <div *ngIf="f['confirmPassword'].errors['matching']">
+                            Confirm Password does not match
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Already a user? <a href="/login">Login</a></label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <button type="button" class="btn btn-cancel" (click)="onReset()">
+                        Reset
+                    </button>
+                </div>
             </form>
         </div>
     </div>
