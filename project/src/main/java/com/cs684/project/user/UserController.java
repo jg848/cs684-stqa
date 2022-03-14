@@ -1,6 +1,5 @@
 package com.cs684.project.user;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -67,20 +66,19 @@ public class UserController {
 	}
 
 	@PostMapping("/signout")
-	public ResponseEntity<UserResponse> signOut(@Valid @RequestParam String username,
-			@Valid @RequestParam String password) {
+	public ResponseEntity<UserResponse> signOut(@Valid @RequestParam String username) {
 		try {
-			if (username.isBlank() || username.isEmpty() || password.isBlank() || password.isEmpty()) {
+			if (username.isBlank() || username.isEmpty()) {
 				throw new IllegalArgumentException();
 			}
-			User user = new User(username, password);
-			List<User> users = userRepository.findAll();
-			for (User other : users) {
-				if (other.equals(user)) {
-					return ResponseEntity.ok(new UserResponse("User found.", user.getId(), user.getUsername()));
-				}
+			Optional<User> users = userRepository.findByUsername(username);
+
+			if (users.isPresent()) {
+				return ResponseEntity
+						.ok(new UserResponse("User found.", users.get().getId(), users.get().getUsername()));
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

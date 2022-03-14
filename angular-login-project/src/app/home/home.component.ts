@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
-    if(this.isLoggedIn)
-      this.welcomeMessage = 'Welcome '+this.authenticationService.username.toUpperCase()
+    if(this.isLoggedIn){
+      this.welcomeMessage = 'Welcome '+this.authenticationService.getLoggedInUserName().toUpperCase()
+    }
   }
 }

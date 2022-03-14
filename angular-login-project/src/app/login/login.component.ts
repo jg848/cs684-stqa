@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from './auth.service';
+import { AuthenticationService } from '../login/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +10,12 @@ import { AuthenticationService } from './auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  username!: String;
-  password!: String;
+  form: FormGroup = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  });
+  submitted = false;
+
   errorMessage = 'Invalid Credentials';
   successMessage!: String;
   invalidLogin = false;
@@ -19,13 +24,40 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.form = this.formBuilder.group(
+      {
+        username: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8)
+          ]
+        ],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+          ]
+        ]
+      }
+    );
   }
 
-  handleLogin() {
-    this.authenticationService.authenticationService(this.username, this.password).subscribe({
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    this.authenticationService.authenticationService(this.form.controls['username'].value, this.form.controls['password'].value).subscribe({
       next: (result) => {
         this.invalidLogin = false;
         this.loginSuccess = true;
@@ -36,5 +68,9 @@ export class LoginComponent implements OnInit {
         this.loginSuccess = false;
       }
     });
+  }
+  onReset(): void {
+    this.submitted = false;
+    this.form.reset();
   }
 }
