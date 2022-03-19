@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,18 +29,15 @@ public class UserController {
 			if (username.isBlank() || username.isEmpty() || password.isBlank() || password.isEmpty()) {
 				throw new IllegalArgumentException();
 			}
-			User newUser = new User(username, password);
 			Optional<User> user = userRepository.findByUsername(username);
-			User userDetails = new User(username, password);
-			if (user.isPresent() && user.get().equals(userDetails)) {
-				return new ResponseEntity<>(
-						new UserResponse("User already exists.", user.get().getId(), user.get().getUsername()),
+			if (user.isPresent() && user.get().getUsername().equals(username)) {
+				return new ResponseEntity<>(new UserResponse("User already exists.", user.get()),
 						HttpStatus.UNAUTHORIZED);
 			} else {
+				User newUser = new User(username, password);
 				userRepository.save(newUser);
-				return ResponseEntity
-						.ok(new UserResponse("User is signed up and authorized. User: " + newUser.toString(),
-								userDetails.getId(), userDetails.getUsername()));
+				return ResponseEntity.ok(
+						new UserResponse("User is signed up and authorized. User: " + newUser.toString(), user.get()));
 			}
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -51,10 +49,9 @@ public class UserController {
 			@Valid @RequestParam String password) {
 		try {
 			Optional<User> user = userRepository.findByUsername(username);
-			User userDetails = new User(username, password);
 
-			if (user.isPresent() && user.get().equals(userDetails)) {
-				return ResponseEntity.ok(new UserResponse("", userDetails.getId(), userDetails.getUsername()));
+			if (user.isPresent() && user.get().getUsername().equals(username)) {
+				return ResponseEntity.ok(new UserResponse("", user.get()));
 
 			} else {
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -65,8 +62,8 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/signout")
-	public ResponseEntity<UserResponse> signOut(@Valid @RequestParam String username) {
+	@GetMapping("/getUser")
+	public ResponseEntity<UserResponse> getUser(@Valid @RequestParam String username) {
 		try {
 			if (username.isBlank() || username.isEmpty()) {
 				throw new IllegalArgumentException();
@@ -75,7 +72,7 @@ public class UserController {
 
 			if (users.isPresent()) {
 				return ResponseEntity
-						.ok(new UserResponse("User found.", users.get().getId(), users.get().getUsername()));
+						.ok(new UserResponse("User found.", users.get()));
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

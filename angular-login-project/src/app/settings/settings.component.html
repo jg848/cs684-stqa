@@ -1,0 +1,14 @@
+<app-menu></app-menu>
+<div class="container">
+    <h1>Settings</h1>
+    <div class="form-check">
+        <ul *ngFor="let category of categories">
+            <input type="checkbox" [(ngModel)]="category.checked" class="form-check-input" />
+            <label class="form-check-label">{{category.name}}</label>
+        </ul>
+
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()">Submit</button>
+        <button class="btn btn-primary" type="submit" (click)="clear()">Clear</button>
+
+    </div>
+</div>
