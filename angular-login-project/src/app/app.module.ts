@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LogoutComponent } from './logout/logout.component';
     MenuComponent,
     LoginComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

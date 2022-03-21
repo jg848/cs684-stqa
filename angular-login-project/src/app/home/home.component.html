@@ -1,4 +1,28 @@
 <app-menu></app-menu>
 <div>
-    <H1>{{welcomeMessage}}</H1>
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <button class="btn btn-success" (click)="refreshPage()">Refresh</button>
+            <button *ngIf="isLoggedIn" class="btn btn-success" routerLink="/settings">Settings</button>
+            <table class="table table-striped" *ngFor="let article of news?.articles"
+                style="border-collapse: collapse;border: 2px solid rgb(200, 200, 200);white-space:pre-wrap;">
+                <tbody>
+                    <tr>
+                        Source - {{ article.source?.name }}</tr>
+                    <tr>Author - {{ article.author }}</tr>
+
+                    <tr>
+                        <td><a href="{{ article.url }}">
+                                {{ article.title }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>{{article.description}}</td>
+                    </tr>
+                    <tr>
+                        <img src="{{article.urlToImage}}" style="height: 300; width: 300px;" />
+                    </tr>
+                </tbody>
+            </table>
+        </table>
+    </div>
 </div>
