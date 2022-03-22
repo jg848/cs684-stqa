@@ -37,7 +37,8 @@ public class UserController {
 				User newUser = new User(username, password);
 				userRepository.save(newUser);
 				return ResponseEntity.ok(
-						new UserResponse("User is signed up and authorized. User: " + newUser.toString(),newUser));
+						new UserResponse("User is signed up and authorized. User: " + newUser.toString(), newUser));
+
 			}
 		} catch (IllegalArgumentException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
