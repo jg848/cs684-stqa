@@ -37,9 +37,10 @@ export class UserResponse {
 export class SettingsComponent implements OnInit {
 
   categories: Categories[] = [];
-  isCheckedValid = false;
+  isCheckedValid = true;
   categoriesList?: string = '';
   userResponse: UserResponse = new UserResponse;
+  errorMessage = 'Select atleast one category';
 
   constructor(private http: HttpClient, private authenticationService: AuthenticationService, private homeService: HomeService, private router: Router) { }
 
@@ -62,12 +63,12 @@ export class SettingsComponent implements OnInit {
         .post<NewsResponse>(url, {})
         .pipe(retry(1), catchError(this.homeService.handleError)).subscribe((data: NewsResponse) => {
           console.log(data);
-        })
+        });
+        this.router.navigate(['home']);
     }
     this.selectedCheckboxList.forEach((names) => {
       console.log(names.name);
     });
-    this.router.navigate(['home']);
     //console.log(
   }
 
