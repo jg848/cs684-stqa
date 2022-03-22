@@ -1,13 +1,18 @@
 <app-menu></app-menu>
+
+        <img src="assets\minions3.jpg">
+ 
 <div class="container col-lg-6">
+    
     <h1 class="text-center">Login</h1>
     <div class="card">
         <div class="card-body">
+            
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-group">
                 <div class="alert alert-warning" *ngIf="invalidLogin">
                     {{errorMessage}}
                 </div>
-                <div class="form-group">
+                       <div class="form-group">
                     <label>Username</label>
                     <input type="text" formControlName="username" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f['username'].errors }" />
@@ -31,15 +36,21 @@
                             Password must have a lower case letter, an upper case letter, a number and a special
                             character
                         </div>
+                        
                     </div>
+                    
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Login</button>
                     <button type="button" class="btn btn-cancel" (click)="onReset()">
                         Reset
                     </button>
+                    
                 </div>
+                
             </form>
+            
         </div>
     </div>
+    <img src="assets\minions2.jpg">
 </div>

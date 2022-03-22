@@ -3,8 +3,10 @@
     <div class="container mt-5">
         <table class="table table-striped">
             <button class="btn btn-success" (click)="refreshPage()">Refresh</button>
-            <button *ngIf="isLoggedIn" class="btn btn-success" routerLink="/settings">Settings</button>
-            <table class="table table-striped" *ngFor="let article of news?.articles"
+            
+                       <button *ngIf="isLoggedIn" class="btn btn-success" style="float: right" routerLink="/settings">Settings</button>
+                
+                       <table class="table table-striped" *ngFor="let article of news?.articles"
                 style="border-collapse: collapse;border: 2px solid rgb(200, 200, 200);white-space:pre-wrap;">
                 <tbody>
                     <tr>
