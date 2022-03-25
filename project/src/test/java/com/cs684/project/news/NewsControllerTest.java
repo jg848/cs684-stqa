@@ -116,5 +116,77 @@ public class NewsControllerTest {
 		NewsResponse result = restTemplate.getForObject(uri + "news/user/settings?category=", NewsResponse.class);
 		assertTrue(result.getStatus().equalsIgnoreCase("NOT_FOUND"));
 	}
+	
+	/**
+	 * Test method for successfully getting category news.
+	 */
+	@Test
+	public final void testGetCategoryNewsSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/category/general", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
+	}
+
+	/**
+	 * Test method for failing to get news due to empty category parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetCategoryNewsEmptyCategory() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/category/", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+
+	/**
+	 * Test method for failing to get news due to empty category parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetCategoryNewsBlankCategory() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/category/ ", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+
+	/**
+	 * Test method for failing to get news due to invalid category parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetNewsInvalidCategory() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/defaultuser/general1", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("FORBIDDEN"));
+	}
+	
+	/**
+	 * Test method for successfully getting User news.
+	 */
+	@Test
+	public final void testGetUserNewsSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/bob12345", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
+	}
+
+	/**
+	 * Test method for failing to get User news due to empty user parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetUserNewsEmptyUser() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+
+	/**
+	 * Test method for failing to get User news due to empty user parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetUserNewsBlankUser() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/ ", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+
+	/**
+	 * Test method for failing to get User news due to invalid user parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetUserNewsInvalidUser() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/user", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("FORBIDDEN"));
+	}
 
 }
