@@ -2,6 +2,9 @@
 <div class="container">
     <h1>Settings</h1>
     <div class="form-check">
+        <div class="alert alert-warning" *ngIf="!isCheckedValid">
+            {{errorMessage}}
+        </div>
         <ul *ngFor="let category of categories">
             <input type="checkbox" [(ngModel)]="category.checked" class="form-check-input" />
             <label class="form-check-label">{{category.name}}</label>
