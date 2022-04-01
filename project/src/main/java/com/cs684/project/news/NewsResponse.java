@@ -1,12 +1,23 @@
 package com.cs684.project.news;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NewsResponse {
 
 	private String status;
 	private int totalResults;
-	private ArrayList<Article> articles;
+	private List<Article> articles;
+
+	public NewsResponse() {
+		super();
+	}
+
+	public NewsResponse(String status, int totalResults, List<Article> articles2) {
+		super();
+		this.status = status;
+		this.totalResults = totalResults;
+		this.articles = articles2;
+	}
 
 	public String getStatus() {
 		return status;
@@ -24,11 +35,11 @@ public class NewsResponse {
 		this.totalResults = totalResults;
 	}
 
-	public ArrayList<Article> getArticles() {
+	public List<Article> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(ArrayList<Article> articles) {
+	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
 
