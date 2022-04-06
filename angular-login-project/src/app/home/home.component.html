@@ -1,17 +1,62 @@
 <app-menu></app-menu>
+<nav class="navbar navbar-expand-md justify-content">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="nav navbar-nav">
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('home')"
+                        [ngClass]="{'active': homeButton==true}">Home</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('general')"
+                        [ngClass]="{'active': generalButton==true}">General</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('business')"
+                        [ngClass]="{'active': businessButton==true}">Business</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('entertainment')"
+                        [ngClass]="{'active': entertainmentButton==true}">Entertainment</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('health')"
+                        [ngClass]="{'active': healthButton==true}">Health</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('science')"
+                        [ngClass]="{'active': scienceButton==true}">Science</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('sports')"
+                        [ngClass]="{'active': sportsButton==true}">Sports</button>
+                </li>
+                <li>
+                    <button class="btn btn-cancel" (click)="getCategoryNews('technology')"
+                        [ngClass]="{'active': technologyButton==true}">Technology</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <div>
     <div class="container mt-5">
         <table class="table table-striped">
-            <button class="btn btn-success" (click)="refreshPage()">Refresh</button>
-            
-                       <button *ngIf="isLoggedIn" class="btn btn-success" style="float: right" routerLink="/settings">Settings</button>
-                
-                       <table class="table table-striped" *ngFor="let article of news?.articles"
+            <!-- <button class="btn btn-success" (click)="refreshPage()">Refresh</button>
+
+            <button *ngIf="isLoggedIn" class="btn btn-success" style="float: right"
+                routerLink="/settings">Settings</button> <!-->
+
+            <table class="table table-striped"
+                *ngFor="let article of collection | paginate: { itemsPerPage: 20, currentPage: p }"
                 style="border-collapse: collapse;border: 2px solid rgb(200, 200, 200);white-space:pre-wrap;">
                 <tbody>
                     <tr>
-                        Source - {{ article.source?.name }}</tr>
-                    <tr>Author - {{ article.author }}</tr>
+                        Source - {{ article.source?.name }}
+                    </tr>
+                    <tr>
+                        Author - {{ article.author }}
+                    </tr>
 
                     <tr>
                         <td><a href="{{ article.url }}">
@@ -21,10 +66,17 @@
                         <td>{{article.description}}</td>
                     </tr>
                     <tr>
+                        <td>
+                            Published At - {{article.publishedAt}}
+                        </td>
+                    </tr>
+                    <tr>
                         <img src="{{article.urlToImage}}" style="height: 300; width: 300px;" />
                     </tr>
                 </tbody>
+
             </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </table>
     </div>
 </div>

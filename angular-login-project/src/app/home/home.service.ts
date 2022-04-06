@@ -11,7 +11,7 @@ export class Source {
 
 export class Article {
     source?: Source;
-    author? : string;
+    author?: string;
     title?: string;
     description?: string;
     url?: string;
@@ -32,17 +32,21 @@ export class NewsResponse {
 export class HomeService {
     constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
     }
-    executeHomeService() {
-        return this.http.post<MessageModel>('http://localhost:8080/users/signin', '');
-    }
 
     getGeneralNews(): Observable<NewsResponse> {
         let username = this.authenticationService.getLoggedInUserName();
-        if(!this.authenticationService.isUserLoggedIn()){
+        if (!this.authenticationService.isUserLoggedIn()) {
             username = 'defaultuser';
         }
         return this.http
-            .get<NewsResponse>('http://localhost:8080/news/' + username + '/general')
+            .get<NewsResponse>('http://localhost:8080/news/' + username)
+            .pipe(retry(1), catchError(this.handleError));
+
+    }
+
+    getCategoryNews(category: string): Observable<NewsResponse> {
+        return this.http
+            .get<NewsResponse>('http://localhost:8080/news/category/' + category)
             .pipe(retry(1), catchError(this.handleError));
 
     }
