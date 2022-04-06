@@ -26,4 +26,8 @@ export class MenuComponent implements OnInit {
   handleLogout() {
     this.authenticationService.logout();
   }
+
+  refreshPage(){
+    window.location.reload();
+  }
 }

@@ -59,12 +59,13 @@ export class SettingsComponent implements OnInit {
         this.categoriesList = this.categoriesList + item.name + ',';
       })
       let url = 'http://localhost:8080/news/' + this.authenticationService.getLoggedInUserName().toString() + '/settings?categories=' + this.categoriesList;
+      console.log(url);
       this.http
         .post<NewsResponse>(url, {})
         .pipe(retry(1), catchError(this.homeService.handleError)).subscribe((data: NewsResponse) => {
           console.log(data);
         });
-        this.router.navigate(['home']);
+      this.router.navigate(['home']);
     }
     this.selectedCheckboxList.forEach((names) => {
       console.log(names.name);
@@ -79,13 +80,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let url = 'http://localhost:8080/users/getUser?username=' + this.authenticationService.getLoggedInUserName().toString();
-    this.http
-      .get<UserResponse>(url)
-      .pipe(retry(1), catchError(this.homeService.handleError)).subscribe((data: UserResponse) => {
-        this.userResponse = data;
-      })
-
     this.categories = [
       {
         id: 1,
@@ -124,6 +118,48 @@ export class SettingsComponent implements OnInit {
       },
     ]
 
+    let url = 'http://localhost:8080/users/getUser?username=' + this.authenticationService.getLoggedInUserName().toString();
+    this.http
+      .get<UserResponse>(url)
+      .pipe(retry(1), catchError(this.homeService.handleError)).subscribe((data: UserResponse) => {
+        this.userResponse = data;
+        console.log(this.categories[0]);
+        if (data.user?.general?.valueOf()) {
+          this.categories[0].checked = true;
+        } else {
+          this.categories[0].checked = false;
+        }
+        if (data.user?.business?.valueOf()) {
+          this.categories[1].checked = true;
+        } else {
+          this.categories[1].checked = false;
+        }
+        if (data.user?.entertainment?.valueOf()) {
+          this.categories[2].checked = true;
+        } else {
+          this.categories[2].checked = false;
+        }
+        if (data.user?.health?.valueOf()) {
+          this.categories[3].checked = true;
+        } else {
+          this.categories[3].checked = false;
+        }
+        if (data.user?.science?.valueOf()) {
+          this.categories[4].checked = true;
+        } else {
+          this.categories[4].checked = false;
+        }
+        if (data.user?.sports?.valueOf()) {
+          this.categories[5].checked = true;
+        } else {
+          this.categories[5].checked = false;
+        }
+        if (data.user?.technology?.valueOf()) {
+          this.categories[6].checked = true;
+        } else {
+          this.categories[6].checked = false;
+        }
+      });
   }
 
 }
