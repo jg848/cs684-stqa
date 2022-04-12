@@ -69,17 +69,14 @@
 		var pwd = document.getElementById("password1");
 		
 		const axios = require('axios')
-		console.log(user);
-		console.log(pwd);
 		axios.post('http://localhost:8080/users/signin', {
 			username: 'bob',
 			password: 'password'
 		})
 		.then(response => {
-			//document.write("Team Name: " + response.data['team'] + "\n" + response.data['token'])
-			console.log(response)
+			
 		}, err => {
-			console.log(err)
+			
 		})
 		
 	}
