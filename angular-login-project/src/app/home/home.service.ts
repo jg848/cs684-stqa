@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { AuthenticationService } from '../login/auth.service';
-import { MessageModel } from '../message';
+import { User } from '../settings/settings.component';
 
 export class Source {
     id?: string;
@@ -49,6 +49,12 @@ export class HomeService {
             .get<NewsResponse>('http://localhost:8080/news/category/' + category)
             .pipe(retry(1), catchError(this.handleError));
 
+    }
+
+    getUser(username: string) {
+        return this.http
+            .get('http://localhost:8080/users/getUser?username=' + username)
+            .pipe(retry(1), catchError(this.handleError));
     }
 
     handleError(error: any) {

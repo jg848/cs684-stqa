@@ -1,6 +1,7 @@
 import { Component, Directive, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../login/auth.service';
+import { User } from '../settings/settings.component';
 import { Article, HomeService, NewsResponse } from './home.service';
 
 @Component({
@@ -23,24 +24,29 @@ export class HomeComponent implements OnInit {
   scienceButton = false;
   sportsButton = false;
   technologyButton = false;
+  category: string = 'home';
 
   constructor(private route: ActivatedRoute,
     private router: Router, private homeService: HomeService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-
+    let username = 'defaultuser';
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
     if (this.isLoggedIn) {
-      this.welcomeMessage = 'Welcome ' + this.authenticationService.getLoggedInUserName().toUpperCase();
+      username = this.authenticationService.getLoggedInUserName()
+      this.welcomeMessage = 'Welcome ' + username.toUpperCase();
     }
+    this.homeService.getUser(username).subscribe((data: any) => {
+      this.category = data.message;
+    })
     this.homeService.getGeneralNews().subscribe((data: NewsResponse) => {
-      console.log(data.articles?.length);
       this.news = data;
       this.collection = data.articles as any;
     })
   }
 
   getCategoryNews(category: string) {
+    this.category = category;
     if ('home' === category) {
       this.setButtonsToFalse();
       this.homeButton = true;
@@ -75,7 +81,6 @@ export class HomeComponent implements OnInit {
       this.technologyButton = true;
     }
     this.homeService.getCategoryNews(category).subscribe((data: NewsResponse) => {
-      console.log(data);
       this.news = data;
       this.collection = data.articles as any;
     })

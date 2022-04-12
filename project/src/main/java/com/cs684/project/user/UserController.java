@@ -36,8 +36,8 @@ public class UserController {
 			} else {
 				User newUser = new User(username, password);
 				userRepository.save(newUser);
-				return ResponseEntity.ok(
-						new UserResponse("User is signed up and authorized. User: " + newUser.toString(), newUser));
+				return ResponseEntity
+						.ok(new UserResponse("User is signed up and authorized. User: " + newUser.toString(), newUser));
 
 			}
 		} catch (IllegalArgumentException e) {
@@ -66,14 +66,56 @@ public class UserController {
 	@GetMapping("/getUser")
 	public ResponseEntity<UserResponse> getUser(@Valid @RequestParam String username) {
 		try {
+			StringBuilder categories = new StringBuilder();
 			if (username.isBlank() || username.isEmpty()) {
 				throw new IllegalArgumentException();
 			}
 			Optional<User> users = userRepository.findByUsername(username);
 
 			if (users.isPresent()) {
-				return ResponseEntity
-						.ok(new UserResponse("User found.", users.get()));
+				if (users.get().isBusiness()) {
+					if (categories.isEmpty())
+						categories.append("business");
+					else
+						categories.append(", business");
+				}
+				if (users.get().isEntertainment()) {
+					if (categories.isEmpty())
+						categories.append("entertainment");
+					else
+						categories.append(", entertainment");
+				}
+				if (users.get().isGeneral()) {
+					if (categories.isEmpty())
+						categories.append("general");
+					else
+						categories.append(", general");
+				}
+				if (users.get().isHealth()) {
+					if (categories.isEmpty())
+						categories.append("health");
+					else
+						categories.append(", health");
+				}
+				if (users.get().isScience()) {
+					if (categories.isEmpty())
+						categories.append("science");
+					else
+						categories.append(", science");
+				}
+				if (users.get().isSports()) {
+					if (categories.isEmpty())
+						categories.append("sports");
+					else
+						categories.append(", sports");
+				}
+				if (users.get().isTechnology()) {
+					if (categories.isEmpty())
+						categories.append("technology");
+					else
+						categories.append(", technology");
+				}
+				return ResponseEntity.ok(new UserResponse(categories.toString(), users.get()));
 			} else {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}

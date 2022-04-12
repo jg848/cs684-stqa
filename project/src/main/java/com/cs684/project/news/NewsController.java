@@ -126,12 +126,18 @@ public class NewsController {
 			int totalResults = 0;
 			List<Article> articles = new ArrayList<Article>();
 			String status = "";
+			if (responseList.size() == 1) {
+				status = responseList.get(0).getBody().getStatus();
+				totalResults += responseList.get(0).getBody().getTotalResults();
+				articles.addAll(responseList.get(0).getBody().getArticles());
+			}
 			for (int i = 1; i < responseList.size(); i++) {
 				if (null != responseList.get(0).getBody() && null != responseList.get(i).getBody()) {
 					status = responseList.get(i).getBody().getStatus();
 					totalResults += responseList.get(i).getBody().getTotalResults();
 					articles.addAll(responseList.get(i).getBody().getArticles());
 				}
+
 			}
 
 			sortList(articles);
