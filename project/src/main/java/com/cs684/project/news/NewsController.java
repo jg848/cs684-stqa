@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,6 +44,9 @@ public class NewsController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Value("${news.api.key}")
+	private String newsApiKey;
 
 	@GetMapping("/{user}/{category}")
 	public ResponseEntity<NewsResponse> getNews(@PathVariable String user, @PathVariable String category) {
@@ -65,7 +69,7 @@ public class NewsController {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer a2b37021ab474da6b08f09dd083c9c6b");
+		headers.set("Authorization", "Bearer "+ newsApiKey);
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
