@@ -44,7 +44,7 @@ public class NewsController {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Value("${news.api.key}")
 	private String newsApiKey;
 
@@ -57,7 +57,7 @@ public class NewsController {
 			return new ResponseEntity<NewsResponse>(new NewsResponse("BAD_REQUEST", 0, null), HttpStatus.BAD_REQUEST);
 		}
 		String[] categories = new String[] { "general", "business", "entertainment", "health", "science", "sports",
-				"technology" };
+				"technology", "search" };
 		List<String> categoryList = new ArrayList<>(Arrays.asList(categories));
 		if (!categoryList.contains(category)) {
 			return new ResponseEntity<NewsResponse>(new NewsResponse("BAD_REQUEST", 0, null), HttpStatus.BAD_REQUEST);
@@ -69,19 +69,26 @@ public class NewsController {
 		}
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("Authorization", "Bearer "+ newsApiKey);
+		headers.set("Authorization", "Bearer " + newsApiKey);
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		HttpEntity<Object> entity = new HttpEntity<Object>(headers);
 
 		RestTemplate restTemplate = new RestTemplate();
+		String URI = setURI(COUNTRY_PARAM, CATEGORY_PARAM, PAGE_SIZE_PARAM, PAGE_PARAM);
+		if(category.equalsIgnoreCase("search"))
+			URI = NewsController.URI;
 		ResponseEntity<NewsResponse> response = restTemplate.exchange(
-				setURI(COUNTRY_PARAM, CATEGORY_PARAM, PAGE_SIZE_PARAM, PAGE_PARAM), HttpMethod.GET, entity,
+				URI, HttpMethod.GET, entity,
 				NewsResponse.class);
 
+		NewsController.URI = "https://newsapi.org/v2/top-headlines";
 		COUNTRY_PARAM = "us";
 		CATEGORY_PARAM = "general";
 		PAGE_SIZE_PARAM = 100;
 		PAGE_PARAM = 1;
+
+		if (null != response.getBody() && null != response.getBody().getArticles())
+			sortList(response.getBody().getArticles());
 
 		return response;
 	}
@@ -278,6 +285,15 @@ public class NewsController {
 				}
 			}
 		});
+	}
+
+	@GetMapping("/search/{searchTerms}")
+	public ResponseEntity<NewsResponse> getSearchResults(@PathVariable String searchTerms) {
+		if (null == searchTerms || searchTerms.isBlank() || searchTerms.isEmpty()) {
+			return new ResponseEntity<NewsResponse>(new NewsResponse("BAD_REQUEST", 0, null), HttpStatus.BAD_REQUEST);
+		}
+		URI = "https://newsapi.org/v2/everything?q=" + searchTerms;
+		return getNews("defaultuser", "search");
 	}
 
 }

@@ -52,23 +52,24 @@ public class NewsControllerTest {
 		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
 	}
 
+	// Below tests removed due to addition of news/{user} endpoint
 	/**
 	 * Test method for failing to get news due to empty category parameter.
 	 */
-	@Test(expected = HttpClientErrorException.class)
-	public final void testGetNewsEmptyCategory() {
-		NewsResponse result = restTemplate.getForObject(uri + "/news/bob12345/", NewsResponse.class);
-		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
-	}
-
-	/**
-	 * Test method for failing to get news due to empty category parameter.
-	 */
-	@Test(expected = HttpClientErrorException.class)
-	public final void testGetNewsBlankCategory() {
-		NewsResponse result = restTemplate.getForObject(uri + "/news/bob12345/ ", NewsResponse.class);
-		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
-	}
+	/*
+	 * @Test(expected = HttpClientErrorException.class) public final void
+	 * testGetNewsEmptyCategory() { NewsResponse result =
+	 * restTemplate.getForObject(uri + "/news/bob12345/", NewsResponse.class);
+	 * assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST")); }
+	 * 
+	 *//**
+		 * Test method for failing to get news due to empty category parameter.
+		 *//*
+			 * @Test(expected = HttpClientErrorException.class) public final void
+			 * testGetNewsBlankCategory() { NewsResponse result =
+			 * restTemplate.getForObject(uri + "/news/bob12345/ ", NewsResponse.class);
+			 * assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST")); }
+			 */
 
 	/**
 	 * Test method for failing to get news due to invalid user parameter.
@@ -84,7 +85,7 @@ public class NewsControllerTest {
 	 */
 	@Test
 	public final void testSaveSettingsSuccess() {
-		NewsResponse result = restTemplate.getForObject(uri + "news/bob12345/settings?category=general",
+		NewsResponse result = restTemplate.getForObject(uri + "news/bob12345/settings?category=General",
 				NewsResponse.class);
 		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
 	}
@@ -116,7 +117,7 @@ public class NewsControllerTest {
 		NewsResponse result = restTemplate.getForObject(uri + "news/user/settings?category=", NewsResponse.class);
 		assertTrue(result.getStatus().equalsIgnoreCase("NOT_FOUND"));
 	}
-	
+
 	/**
 	 * Test method for successfully getting category news.
 	 */
@@ -152,7 +153,7 @@ public class NewsControllerTest {
 		NewsResponse result = restTemplate.getForObject(uri + "/news/defaultuser/general1", NewsResponse.class);
 		assertTrue(result.getStatus().equalsIgnoreCase("FORBIDDEN"));
 	}
-	
+
 	/**
 	 * Test method for successfully getting User news.
 	 */
@@ -172,7 +173,7 @@ public class NewsControllerTest {
 	}
 
 	/**
-	 * Test method for failing to get User news due to empty user parameter.
+	 * Test method for failing to get User news due to blank user parameter.
 	 */
 	@Test(expected = HttpClientErrorException.class)
 	public final void testGetUserNewsBlankUser() {
@@ -187,6 +188,62 @@ public class NewsControllerTest {
 	public final void testGetUserNewsInvalidUser() {
 		NewsResponse result = restTemplate.getForObject(uri + "/news/user", NewsResponse.class);
 		assertTrue(result.getStatus().equalsIgnoreCase("FORBIDDEN"));
+	}
+
+	/**
+	 * Test method for successfully getting search news.
+	 */
+	@Test
+	public final void testGetSearchNewsSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/njit", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
+	}
+
+	/**
+	 * Test method for failing to get search news due to empty search terms
+	 * parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetSearchNewsEmptySearchTerms() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+
+	/**
+	 * Test method for failing to get search news due to blank search terms
+	 * parameter.
+	 */
+	@Test(expected = HttpClientErrorException.class)
+	public final void testGetSearchNewsBlankSearchTerms() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/ ", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("BAD-REQUEST"));
+	}
+	
+	/**
+	 * Test method for successfully getting search news.
+	 */
+	@Test
+	public final void testGetAdvancedSearchNewsORSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/njit OR nyu", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
+	}
+	
+	/**
+	 * Test method for successfully getting search news.
+	 */
+	@Test
+	public final void testGetAdvancedSearchNewsANDSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/njit AND nyu", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
+	}
+	
+	/**
+	 * Test method for successfully getting search news.
+	 */
+	@Test
+	public final void testGetAdvancedSearchNewsParanthesesSuccess() {
+		NewsResponse result = restTemplate.getForObject(uri + "/news/search/(njit OR nyu) AND computer science", NewsResponse.class);
+		assertTrue(result.getStatus().equalsIgnoreCase("OK"));
 	}
 
 }
