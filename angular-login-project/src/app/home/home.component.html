@@ -39,6 +39,14 @@
         </div>
     </div>
 </nav>
+<div class="container">
+    <div class="input-group">
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search">
+        <span class="input-group-btn">
+            <button class="btn btn-search" type="button" (click)="getSearchNews()"><i class="fa fa-search fa-fw"></i> Search</button>
+        </span>
+    </div>
+</div>
 <div>
     <div class="container mt-5">
         <table class="table table-striped">

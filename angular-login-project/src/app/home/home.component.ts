@@ -1,7 +1,6 @@
 import { Component, Directive, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../login/auth.service';
-import { User } from '../settings/settings.component';
 import { Article, HomeService, NewsResponse } from './home.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class HomeComponent implements OnInit {
   sportsButton = false;
   technologyButton = false;
   category: string = 'home';
+  searchText = '';
 
   constructor(private route: ActivatedRoute,
     private router: Router, private homeService: HomeService, private authenticationService: AuthenticationService) { }
@@ -81,6 +81,14 @@ export class HomeComponent implements OnInit {
       this.technologyButton = true;
     }
     this.homeService.getCategoryNews(category).subscribe((data: NewsResponse) => {
+      this.news = data;
+      this.collection = data.articles as any;
+    })
+  }
+
+  getSearchNews(){
+    console.log(this.searchText);
+    this.homeService.getSearchResults(this.searchText).subscribe((data: NewsResponse) => {
       this.news = data;
       this.collection = data.articles as any;
     })
