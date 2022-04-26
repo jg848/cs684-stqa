@@ -1,7 +1,7 @@
-import { Component, Directive, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../login/auth.service';
-import { Article, HomeService, NewsResponse } from './home.service';
+import { HomeService, NewsResponse } from './home.service';
 
 @Component({
   selector: 'app-home',
@@ -25,11 +25,14 @@ export class HomeComponent implements OnInit {
   technologyButton = false;
   category: string = 'home';
   searchText = '';
+  noResults = false;
+  noResultsMessage = 'No Results Found';
 
   constructor(private route: ActivatedRoute,
     private router: Router, private homeService: HomeService, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
+    this.noResults = false;
     let username = 'defaultuser';
     this.isLoggedIn = this.authenticationService.isUserLoggedIn();
     if (this.isLoggedIn) {
@@ -41,7 +44,12 @@ export class HomeComponent implements OnInit {
     })
     this.homeService.getGeneralNews().subscribe((data: NewsResponse) => {
       this.news = data;
-      this.collection = data.articles as any;
+      if (data.totalResults == 0)
+        this.noResults = true;
+      else {
+        this.noResults = false;
+        this.collection = data.articles as any;
+      }
     })
   }
 
@@ -82,15 +90,26 @@ export class HomeComponent implements OnInit {
     }
     this.homeService.getCategoryNews(category).subscribe((data: NewsResponse) => {
       this.news = data;
-      this.collection = data.articles as any;
+      if (data.totalResults == 0)
+        this.noResults = true;
+      else {
+        this.noResults = false;
+        this.collection = data.articles as any;
+      }
     })
   }
 
-  getSearchNews(){
-    console.log(this.searchText);
+  getSearchNews() {
     this.homeService.getSearchResults(this.searchText).subscribe((data: NewsResponse) => {
       this.news = data;
-      this.collection = data.articles as any;
+      if (data.totalResults == 0)
+        this.noResults = true;
+      else {
+        this.noResults = false;
+        if(data.articles!=undefined)
+          data.articles.sort((a,b) =>  a.publishedAt!=undefined && b.publishedAt!=undefined ? a.publishedAt < b.publishedAt ? 1 : a.publishedAt > b.publishedAt ? -1 : 0: 0)
+        this.collection = data.articles as any;
+      }
     })
   }
 
