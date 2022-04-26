@@ -1,5 +1,25 @@
 # Project "Minions" Test Cases
 
+### Table of Contents
+
+**[Test Cases - Sprint 1](#test-cases---sprint-1)**
+
+**[Report 1 - Sprint 1](#report-1---sprint-1)**
+
+**[Report 2 - Sprint 1](#report-2---sprint-1)**
+
+**[Test Cases - Sprint 2](#test-cases---sprint-2)**
+
+**[Report 1 - Sprint 2](#report-1---sprint-2)**
+
+**[JUnit Report - Sprint 2](#junit-report---sprint-2)**
+
+**[Test Cases - Sprint 3](#test-cases---sprint-3)**
+
+**[Report 1 - Sprint 3](#report---sprint-3)**
+
+**[Test Cases - Sprint 4](#test-cases---sprint-4)**
+
 ### Test Cases - Sprint 1
 
 | Project Name:    | Minions             | Test Designed by:    | Srilekha S    |
@@ -330,18 +350,29 @@
 
 **Functional Cases - Sprint 4**
 
-| Test Case# | Test Title                   | Test Summary                               | Test Steps                                                                              | Test Data | Expected Result                                                                                                                                                 | Actual Result | Status | Notes |
-| ---------- | ---------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------ | ----- |
-| MCTC66     | search capability            | Add a textbox for searching on keywords    | Verify the textbox is adding for search option on the landing page                      |           | A serach option with "Magnifying glass" should be displayed on top center of the landing page                                                                   |               |        |       |
-| MCTC67     | advanced search capabilities | Build support for AND, OR and NOT keywords | Verify the search functionality by including the phrases such as "And" , "OR" and "NOT" |           | When Search with Keywords Such as And/Or/Not , functionality needs to accept it and display results accordingly                                                 |               |        |       |
-| MCTC68     | advanced search capabilities | Include support for parenthesis            | Verify serach functionality with keywords provided with in parenthesis                  |           | When given search as sport and (Science and technology) , serach functionality should accept both "and" and parrenthesis logic and display results accordingly. |               |        |       |
-| MCTC69     | search capability            | Default content validation                 | The landing page shall have a text box for entering search                              |           | When on navigating to landing page , it should show a defaults search bar on top center of the page.                                                            |               |        |       |
-| MCTC70     | search capability            | Settings page content validation           | The search results will display in descending order starting with                       |           | On seraching for particular keyword, results should be displayed in descending order with timestamp as check.                                                   |               |        |       |
-| MCTC71     | search capability            | Settings page content validation           | A meaningful message is displayed when are no results to                                |           | When no results are found, page should redirect to text saying "No results found!"                                                                              |               |        |       |
-|            |                              |                                            |                                                                                         |           |                                                                                                                                                                 |               |        |       |
+| Test Case# | Test Title                   | Test Summary                               | Test Steps                                                                              | Test Data | Expected Result                                                                                                                                                 | Actual Result                                                                    | Status | Notes |
+| ---------- | ---------------------------- | ------------------------------------------ | --------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------ | ----- |
+| MCTC66     | search capability            | Add a textbox for searching on keywords    | Verify the textbox is adding for search option on the landing page                      |           | A serach option with "Magnifying glass" should be displayed on top center of the landing page                                                                   | Search option is displayed.                                                      | Pass   |       |
+| MCTC67     | advanced search capabilities | Build support for AND, OR and NOT keywords | Verify the search functionality by including the phrases such as "And" , "OR" and "NOT" |           | When Search with Keywords Such as And/Or/Not , functionality needs to accept it and display results accordingly                                                 | search functionality works as expected and displays the results                  | Pass   |       |
+| MCTC68     | advanced search capabilities | Include support for parenthesis            | Verify serach functionality with keywords provided with in parenthesis                  |           | When given search as sport and (Science and technology) , serach functionality should accept both "and" and parrenthesis logic and display results accordingly. | Results are displayed according to the loigc operator provided in the search bar | Pass   |       |
+| MCTC69     | search capability            | Default content validation                 | The landing page shall have a text box for entering search                              |           | When on navigating to landing page , it should show a defaults search bar on top center of the page.                                                            | Search bar default displays on landing page even before login                    | Pass   |       |
+| MCTC70     | search capability            | Settings page content validation           | The search results will display in descending order starting with                       |           | On seraching for particular keyword, results should be displayed in descending order with timestamp as check.                                                   | Results found are displayed in descending order of timestamp                     | Pass   |       |
+| MCTC71     | search capability            | Settings page content validation           | A meaningful message is displayed when are no results to                                |           | When no results are found, page should redirect to text saying "No results found!"                                                                              | Results when not found text saying " no results found" is displayed              | Pass   |       |
 
-**API**
+**API Validation**
 
 | Test Case# | Test Title        | Test Summary                            | Test Steps                                                         | Test Data | Expected Result                                                                               | Actual Result | Status | Notes |
 | ---------- | ----------------- | --------------------------------------- | ------------------------------------------------------------------ | --------- | --------------------------------------------------------------------------------------------- | ------------- | ------ | ----- |
-| MCTC72 | API Validation on search | Search response code check | Add a new search endpoint<br> GET<br> /search/{search terms} |  | <br>Status Code<br> 200 – Articles have been returned |  |  |  |
+| MCTC72 | API Validation on search | Search response code check | Add a new search endpoint<br> GET<br> /search/{search terms} |  | <br>Status Code<br> 200 – Articles have been returned |  | Pass |  |
+
+
+**System Test Cases**
+
+| Test Case# | Test Title        | Test Summary                            | Test Steps                                                         | Test Data | Expected Result                                                                               | Actual Result | Status | Notes |
+| ---------- | ----------------- | --------------------------------------- | ------------------------------------------------------------------ | --------- | --------------------------------------------------------------------------------------------- | ------------- | ------ | ----- |
+| MCTC73 | Recoverability Testing   | Recover check                                 | Ensures that the system can recover from a variety of input mistakes and other failure scenarios.            |  | When user closes the application abruptly, it should not impact his pre-existing changes made on app.          | Data is saved on user profile when closed abruptly.                                          | Pass |  |
+| MCTC74 | Interoperability Testing | compatible check                              | Determine whether or not the system is compatible with third-party goods.                                    |  | Intergrating the UI with automation tool and running the scripts                                               | scripts are successfully executed when integreted with 3rd party tool                        | Pass |  |
+| MCTC75 | Performance Testing      | performance check                             | Verifying the system's performance in terms of performance characteristics under different conditions.       |  | Adding multiple users to DB and it should impact the performace of portal.                                     | found no performance issues when added multiple registrations                                | Pass |  |
+| MCTC76 | Scalability Testing      | scaling check                                 | To ensure that the system can scale in terms such as user scaling, geographic scaling, and resource scaling. |  | Application tested across different platforms should not impact the functionality and look and feel of it.     | application works as expected on different browsers with different resolutions               | Pass |  |
+| MCTC77 | Regression Testing       | End to end flow check with new implementation | Ensure the system's stability as it integrates various subsystems and performs maintenance chores            |  | Validating all previous functionality along with new featuers should not break anything.                       | All the previous functionalities are working as expected without impacting the new features. | Pass |  |
+| MCTC78 | Exploratory Testing      | Random functionality check                    | Ensure to explore different modules randomly on application to check if ti breaks                            |  | validating the app with exploring different functioanlity and with no proper flow should not break the portal. | Random exploring gave all succesfull results without breaking the application                | Pass |  |
