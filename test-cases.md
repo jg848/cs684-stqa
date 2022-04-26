@@ -376,3 +376,35 @@
 | MCTC76 | Scalability Testing      | scaling check                                 | To ensure that the system can scale in terms such as user scaling, geographic scaling, and resource scaling. |  | Application tested across different platforms should not impact the functionality and look and feel of it.     | application works as expected on different browsers with different resolutions               | Pass |  |
 | MCTC77 | Regression Testing       | End to end flow check with new implementation | Ensure the system's stability as it integrates various subsystems and performs maintenance chores            |  | Validating all previous functionality along with new featuers should not break anything.                       | All the previous functionalities are working as expected without impacting the new features. | Pass |  |
 | MCTC78 | Exploratory Testing      | Random functionality check                    | Ensure to explore different modules randomly on application to check if ti breaks                            |  | validating the app with exploring different functioanlity and with no proper flow should not break the portal. | Random exploring gave all succesfull results without breaking the application                | Pass |  |
+
+### Report - Sprint 4
+
+| Test Case# | Test Title                   | Status | Ran By | Comments |
+| ---------- | ---------------------------- | ------ | ------ | -------- |
+| MCTC66     | App URL validation           | Pass   | Lekha  |          |
+| MCTC67     | search capability            | Pass   | Lekha  |          |
+| MCTC68     | advanced search capabilities | Pass   | Lekha  |          |
+| MCTC69     | advanced search capabilities | Pass   | Lekha  |          |
+| MCTC70     | search capability            | Pass   | Lekha  |          |
+| MCTC71     | search capability            | Pass   | Lekha  |          |
+| MCTC72     | search capability            | Pass   | Lekha  |          |
+| MCTC73     | Recoverability Testing       | Pass   | Lekha  |          |
+| MCTC74     | Interoperability Testing     | Pass   | Lekha  |          |
+| MCTC75     | Performance Testing          | Pass   | Lekha  |          |
+| MCTC76     | Scalability Testing          | Pass   | Lekha  |          |
+| MCTC77     | Regression Testing           | Pass   | Lekha  |          |
+| MCTC78     | Exploratory Testing          | Pass   | Lekha  |          |
+
+![Report 1 - Sprint 4](/report1sprint4.png)
+
+| Total Test cases | Title                        | Failed | Passed | Not Started |
+| ---------------- | ---------------------------- | ------ | ------ | ----------- |
+| 4                | search capability            | 0      | 4      | 0           |
+| 2                | advanced search capabilities | 0      | 2      | 0           |
+| 1                | API Validation on search     | 0      | 1      | 0           |
+| 1                | Recoverability Testing       | 0      | 1      | 0           |
+| 1                | Interoperability Testing     | 0      | 1      | 0           |
+| 1                | Performance Testing          | 0      | 1      | 0           |
+| 1                | Scalability Testing          | 0      | 1      | 0           |
+| 1                | Regression Testing           | 0      | 1      | 0           |
+| 1                | Exploratory Testing          | 0      | 1      | 0           |
