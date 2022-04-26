@@ -224,14 +224,14 @@ The tester entering a bug into GForge is also responsible for entering the bug S
 |-----------|-------|--------|--------|----------|
 | Test Planning | 04/18 | 04/18 | | Support! |
 | Review Requirements documents | 04/18 | 04/18 | |
-| Create test basis | 04/22	| 04/26 | | 
-| Staff	and	train new test resources | 04/28 | 04/28 | |
-| First	deploy	to	QA	test environment | 04/29 | 04/29 | |
-| Functional testing – Iteration 1 | 04/30 | 04/30 | |
-| Regression testing | 05/01 | 05/01 | |
-| UAT | 05/02 | 05/02 | |
-| Resolution of  final defects and final build testing | 05/04 | 05/05 | |
-| Release to Production | 05/06 | 05/08 | |
+| Create test basis | 04/22	| 04/22 | | 
+| Staff	and	train new test resources | 04/23 | 04/23 | |
+| First	deploy	to	QA	test environment | 04/24 | 04/24 | |
+| Functional testing – Iteration 1 | 04/25 | 04/25| |
+| Regression testing | 04/25 | 04/25 | |
+| UAT |04/25 | 04/25 | |
+| Resolution of  final defects and final build testing | 04/25 | 04/25 | |
+| Release to Production |04/26 | 04/26 | |
 
 ### APPROVALS
 
