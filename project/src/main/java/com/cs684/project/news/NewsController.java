@@ -75,11 +75,9 @@ public class NewsController {
 
 		RestTemplate restTemplate = new RestTemplate();
 		String URI = setURI(COUNTRY_PARAM, CATEGORY_PARAM, PAGE_SIZE_PARAM, PAGE_PARAM);
-		if(category.equalsIgnoreCase("search"))
+		if (category.equalsIgnoreCase("search"))
 			URI = NewsController.URI;
-		ResponseEntity<NewsResponse> response = restTemplate.exchange(
-				URI, HttpMethod.GET, entity,
-				NewsResponse.class);
+		ResponseEntity<NewsResponse> response = restTemplate.exchange(URI, HttpMethod.GET, entity, NewsResponse.class);
 
 		NewsController.URI = "https://newsapi.org/v2/top-headlines";
 		COUNTRY_PARAM = "us";
@@ -87,8 +85,14 @@ public class NewsController {
 		PAGE_SIZE_PARAM = 100;
 		PAGE_PARAM = 1;
 
-		if (null != response.getBody() && null != response.getBody().getArticles())
+		if (null != response.getBody() && null != response.getBody().getArticles()) {
 			sortList(response.getBody().getArticles());
+			if (!response.getBody().toString().endsWith("]\"\r\n" + "        }\r\n" + "    ]\r\n" + "}")) {
+				return new ResponseEntity<NewsResponse>(new NewsResponse(response.getBody().getStatus(),
+						response.getBody().getTotalResults(), response.getBody().getArticles()),
+						response.getStatusCode());
+			}
+		}
 
 		return response;
 	}

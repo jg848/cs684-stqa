@@ -47,7 +47,10 @@
         </span>
     </div>
 </div>
-<div>
+<div class="alert alert-warning" *ngIf="noResults">
+    {{noResultsMessage}}
+</div>
+<div *ngIf="!noResults">
     <div class="container mt-5">
         <table class="table table-striped">
             <!-- <button class="btn btn-success" (click)="refreshPage()">Refresh</button>
