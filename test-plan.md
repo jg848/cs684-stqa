@@ -1,5 +1,48 @@
 # Test Plan - Project “Minions”
 
+### Table of Contents
+**[1. Introduction](#1-introduction)**
+
+**[2. Scope](#2-scope)**
+
+> **[2.1 Functions To Be Tested](#21-functions-to-be-tested)**
+
+> **[2.2 Functions Not To Be Tested](#22-functions-not-to-be-tested)**
+
+**[3. Quality Objectives](#3-quality-objectives)**
+
+> **[3.1 Primary Objectives](#31-primary-objectives)**
+
+> **[3.2 Secondary Objectives](#32-secondary-objectives)**
+
+**[4. Test Approach](#4-test-approach)**
+
+**[5. Roles And Responsibilities](#5-roles-and-responsibilities)**
+
+**[6. Entry And Exit Criteria](#6-entry-and-exit-criteria)**
+
+> **[6.1 Entry Criteria](#61-entry-criteria)**
+
+> **[6.1 Exit Criteria](#62-exit-criteria)**
+
+**[7. Test Strategy](#7-test-strategy)**
+
+> **[7.1 QA Role In Test Process](#71-qa-role-in-test-process)**
+
+> **[7.2 Bug Life Cycle](#72-bug-life-cycle)**
+
+> **[7.3 Testing Types](#73-testing-types)**
+
+> **[7.4 Bug Severity And Priority Definition](#74-bug-severity-and-priority-definition)**
+
+**[8. Resource And Environment Needs](#8-resource-and-environment-needs)**
+
+> **[8.1 Testing Tools](#81-testing-tools)**
+
+> **[8.2 Test Environment](#82-test-envirionment)**
+
+**[9. Test Schedule](#9-test-schedule)**
+
 ### Document Revision History
 
 | Date | Version | Description | Author | Reviewer | Approver |
@@ -17,7 +60,7 @@ The Test Plan was established to help team members communicate more effectively.
 ### 2. SCOPE
 
 The document mainly targets the GUI testing and validating data in report output as per Requirements Specifications provided by Client.
-> **2.1  Functions to be tested**
+> #### 2.1  Functions to be tested
 ●   Searching
 ●   System Tests
 ●   Test Sign up
@@ -28,16 +71,16 @@ The document mainly targets the GUI testing and validating data in report output
 ●	Test searching
 ●	Test advanced searching
 
-> **2.2 Functions not to be tested**
+> #### 2.2 Functions not to be tested
 ●   None other than mentioned above in section 2.1
 
 ### 3. QUALITY OBJECTIVES
 
-> **3.1   Primary Objectives**
+> #### 3.1   Primary Objectives
 A fundamental goal of testing is to ensure that the system meets all criteria, including quality requirements (both functional and non-functional) and fit metrics for each quality requirement, as well as to satisfy use case scenarios and maintain product quality. The user should find that the project has met or exceeded all of their expectations as outlined in the requirements at the end of the project development cycle.
 Any changes, additions, or deletions to the requirements document, Functional Specification, or Design Specification shall be documented and tested to the highest quality possible given the project's remaining timeframe and the test team's capabilities.
 
-> **3.2	Secondary Objectives**
+> #### 3.2	Secondary Objectives
 Secondary testing goals include identifying and exposing all issues and hazards, communicating all known issues to the project team, and ensuring that all concerns are addressed appropriately before release. As a goal, this necessitates thorough and methodical testing of the program to guarantee that all aspects of the system are examined and, as a result, all issues (bugs) discovered are addressed effectively.
 
 ### 4. TEST APPROACH
@@ -69,7 +112,7 @@ The project is being carried out in an agile manner, with weekly iterations. The
 
 ### 6. ENTRY AND EXIT CRITERIA
 
-> **6.1	Entry Criteria**
+> #### 6.1	Entry Criteria
 ●	All test hardware platforms must have been installed, configured, and tested successfully.
 ●	All relevant documentation, design, and requirements information should be available so that testers may operate the system and assess its right behavior.
 ●	All of the standard software tools, including the testing tools, must have been installed and tested successfully.
@@ -79,7 +122,7 @@ The project is being carried out in an agile manner, with weekly iterations. The
 ●	QA personnel are well-versed in functionality.
 ●	Test scenarios and test cases were reviewed.
 
-> **6.2	Exit Criteria**
+> #### 6.2	Exit Criteria
 ●	A specific level of coverage of requirements has been attained.
 ●	There are no high-priority or serious bugs left unresolved.
 ●	Only minimal residual concerns remain after all high-risk regions have been      thoroughly examined.
@@ -87,7 +130,7 @@ The project is being carried out in an agile manner, with weekly iterations. The
 
 ### 7. TEST STRATEGY
 
-> **7.1	QA role in test process**
+> #### 7.1	QA role in test process
 - **Understanding Requirements:**
     - Requirement specifications will be sent by client.
     - Understanding of requirements will be done by QA
@@ -112,12 +155,12 @@ The project is being carried out in an agile manner, with weekly iterations. The
     -   The filled hard copy of the delivery slip will be submitted to the appropriate developer by QA.
     -	Lead will send the report delivery email to the client after he receives the hard copy of the delivery slip filled out by QA and development.
 
-> **7.2	Bug life cycle:**
+> #### 7.2	Bug life cycle:
 All the issues found while testing will be logged into Word documents.
 Bug life cycle for this project is as follows:
 ![Bug Life Cycle](/buglifecycle.png)
 
-> **7.3	Testing types:**
+> #### 7.3	Testing types:
 
 - **Black box testing:**
     -   It is sometimes called behavioral testing or Partition testing. This kind of testing focuses on the functional requirements of the software. It enables one to derive sets of input conditions that will fully exercise all functional requirements for a program.
@@ -137,7 +180,7 @@ Bug life cycle for this project is as follows:
 - **Alpha testing:**
     -   The alpha test is conducted at the developer's site by client.
 
-> **7.4 Bug Severity and Priority Definition**
+> #### 7.4 Bug Severity and Priority Definition
 Bug Severity and Priority fields are both very important for categorizing bugs and prioritizing if and when the bugs will be fixed.   The bug Severity and Priority levels will be defined as outlined in the following tables below. Testing will assign a severity level to all bugs. The Test Lead will be responsible to see that a correct severity level is assigned to each bug.
 The QA Lead, Development Lead and Project Manager will participate in bug review meetings to assign the priority of all currently active bugs. This meeting will be known as “Bug Triage Meetings”. The QA Lead is responsible for setting up these meetings on a routine basis to address the current set of new and existing but unresolved bugs.
 
@@ -160,7 +203,7 @@ The tester entering a bug into GForge is also responsible for entering the bug S
 
 ### 8. RESOURCE AND ENVIRONMENT NEEDS
 
-> **8.1	Testing Tools**
+> #### 8.1	Testing Tools
 
 | Process | Tool |
 |---------|------|
@@ -171,7 +214,7 @@ The tester entering a bug into GForge is also responsible for entering the bug S
 | Defect management | Microsoft Word |
 | Test reporting | Microsoft Word |
 
-> **8.2 Test Envirionment**
+> #### 8.2 Test Envirionment
 	Support level 1 (browsers):
     	Windows 10: Edge, Chrome (latest), Firefox (latest), Safari (latest)
     	
